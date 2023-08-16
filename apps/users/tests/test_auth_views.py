@@ -7,10 +7,9 @@ from rest_framework import status
 from config.constants import SERVICE, SYSTEM_CODE
 from utils import times
 from apps.users.models import User
-from apps.systems.tests import BaseAPITest
 
 
-class AuthAPITest(BaseAPITest):
+class AuthAPITest(APITestCase):
     assert SERVICE.DEBUG
 
     testclient = APIClient()
@@ -46,7 +45,7 @@ class AuthAPITest(BaseAPITest):
 
     def test_register_success(self):
         """
-        회원가입 성공 테스트
+        Register API Success Test
         """
 
         request_body = {
@@ -67,7 +66,7 @@ class AuthAPITest(BaseAPITest):
 
     def test_login_success(self):
         """
-        로그인 성공 테스트
+        Login API Success Test
         """
 
         response = self.testclient.post("/api/v1/auth/login/", self.test_user_login_info, format="json")
