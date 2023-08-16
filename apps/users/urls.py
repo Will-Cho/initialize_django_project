@@ -4,13 +4,17 @@ from django.urls import include, path
 
 # Project
 from apps.users.views.auth_views import AuthViewSet
+from apps.users.views.user_views import UserViewSet
 
 auth_urls = [
-    path("login/", AuthViewSet.as_view({"post": "login"})),  # Login
-    path("register/", AuthViewSet.as_view({"post": "register"})),  # Register
+    path("login/", AuthViewSet.as_view({"post": "post_login"})),  # Login
+    path("register/", AuthViewSet.as_view({"post": "post_register"})),  # Register
+    path("refresh/", AuthViewSet.as_view({"post": "post_token_refresh"})),  # Token Refresh
 ]
 
-user_urls = []
+user_urls = [
+    path("", UserViewSet.as_view({"get": "get_user"})),  # Get User Own Info
+]
 
 
 urlpatterns = [

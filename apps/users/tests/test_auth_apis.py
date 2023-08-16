@@ -1,5 +1,5 @@
 # System
-from rest_framework.test import APITestCase, APIClient
+from rest_framework.test import APIClient
 from rest_framework import status
 
 
@@ -7,23 +7,11 @@ from rest_framework import status
 from config.constants import SERVICE, SYSTEM_CODE
 from utils import times
 from apps.users.models import User
+from apps.systems.tests import BaseAPITest
 
 
-class AuthAPITest(APITestCase):
+class AuthAPITest(BaseAPITest):
     assert SERVICE.DEBUG
-
-    testclient = APIClient()
-
-    test_user_info = {
-        "email": "api-test@test.com",
-        "password": "api-test1!",
-        "username": "api-tester",
-    }
-
-    test_user_login_info = {
-        "email": "api-test@test.com",
-        "password": "api-test1!",
-    }
 
     def setUp(self):
         """
@@ -35,7 +23,9 @@ class AuthAPITest(APITestCase):
         if not user:
             self.testclient.post("/api/v1/auth/register/", self.test_user_info, format="json")
 
-        self.testclient.force_authenticate(user=user)
+        response = self.testclient.post("/api/v1/auth/login/", self.test_user_login_info, format="json")
+        result = response.json()
+        self.refresh_token = result["data"]["refresh_token"]
 
     def tearDown(self):
         """
@@ -70,6 +60,19 @@ class AuthAPITest(APITestCase):
         """
 
         response = self.testclient.post("/api/v1/auth/login/", self.test_user_login_info, format="json")
+        result = response.json()
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(result["code"], SYSTEM_CODE.SUCCESS[0])
+        self.assertEqual(result["msg"], SYSTEM_CODE.SUCCESS[1])
+
+    def test_refresh_token(self):
+        """
+        Refresh Token API Success Test
+        """
+
+        request_body = {"refresh_token": self.refresh_token}
+        response = self.testclient.post("/api/v1/auth/refresh/", request_body, format="json")
         result = response.json()
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)

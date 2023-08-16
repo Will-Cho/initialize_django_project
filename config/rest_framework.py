@@ -12,6 +12,7 @@ from apps.users.models import User
 from config.constants import SYSTEM_CODE, SERVICE
 from config.exception import raise_exception
 from config.response import create_response
+from utils import times
 
 
 class CustomJWTAuthentication(BaseAuthentication):
@@ -26,14 +27,14 @@ class CustomJWTAuthentication(BaseAuthentication):
 
         try:
             access_token = authorization_header.split(" ")[1]  # "Bearer xxxxxxx"
-            payload = jwt.decode(access_token, settings.SECRET_KEY, algorithms="HS256", options={"verify_signature": False})
+            payload = jwt.decode(access_token, settings.SECRET_KEY, algorithms="HS256")
 
         except jwt.ExpiredSignatureError:
             # 토큰 만료
-            raise_exception(code=SYSTEM_CODE.TOKEN_EXPIRED)
+            raise_exception(code=SYSTEM_CODE.TOKEN_EXPIRED, status=status.HTTP_401_UNAUTHORIZED)
         except jwt.DecodeError:
             # 토큰일 올바르지 않은 경우
-            raise_exception(code=SYSTEM_CODE.TOKEN_INVALID)
+            raise_exception(code=SYSTEM_CODE.TOKEN_INVALID, status=status.HTTP_401_UNAUTHORIZED)
 
         user = User.objects.filter(id=payload["user_id"], email=payload["email"]).first()
         if not user:
