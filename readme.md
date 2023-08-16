@@ -126,10 +126,21 @@ REDIS_HOST=
   - ```DB_HOST=mariadb```
 
 
-- docker-compose
+- docker-compose (in local)
   - use **env sample**
-```
-# path : $project_path
-docker-compose -f $project_path/docker/docker-compose-yml up --build -d
-```
+    ```
+    # path : $project_path
+    docker-compose -f $project_path/docker/docker-compose-yml up --build -d
+    ```
+  - web site
+    - ```http://localhost```
+    - ```http://localhost/admin/```
+    - ```http://localhost/swagger/v1/```
+
+  - create superuser (if you want to login to admindjango page)
+    - if you want to create superuser in test deploy enviroment
+      - connect to background running container ""
+      - enter this command : ```python manage.py createsuperuser```
+      - enter email, username, password
+
 
