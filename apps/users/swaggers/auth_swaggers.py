@@ -36,8 +36,8 @@ class SwaggerRegister:
                         ),
                     },
                 ),
-                "msg": openapi.Schema(type=openapi.TYPE_STRING, description="message", default="success"),
-                "code": openapi.Schema(type=openapi.TYPE_INTEGER, description="code", default=0),
+                "msg": openapi.Schema(type=openapi.TYPE_STRING, description="message", default=SYSTEM_CODE.SUCCESS[1]),
+                "code": openapi.Schema(type=openapi.TYPE_INTEGER, description="code", default=SYSTEM_CODE.SUCCESS[0]),
                 "extra": openapi.Schema(type=openapi.TYPE_OBJECT, description="extra data", nullable=True, default=None),
             },
         ),
@@ -102,8 +102,8 @@ class SwaggerLogin:
                         ),
                     },
                 ),
-                "msg": openapi.Schema(type=openapi.TYPE_STRING, description="message", default="success"),
-                "code": openapi.Schema(type=openapi.TYPE_INTEGER, description="code", default=0),
+                "msg": openapi.Schema(type=openapi.TYPE_STRING, description="message", default=SYSTEM_CODE.SUCCESS[1]),
+                "code": openapi.Schema(type=openapi.TYPE_INTEGER, description="code", default=SYSTEM_CODE.SUCCESS[0]),
                 "extra": openapi.Schema(type=openapi.TYPE_OBJECT, description="extra data", nullable=True, default=None),
             },
         ),
@@ -182,8 +182,8 @@ class SwaggerTokenRefresh:
                         ),
                     },
                 ),
-                "msg": openapi.Schema(type=openapi.TYPE_STRING, description="message", default="success"),
-                "code": openapi.Schema(type=openapi.TYPE_INTEGER, description="code", default=0),
+                "msg": openapi.Schema(type=openapi.TYPE_STRING, description="message", default=SYSTEM_CODE.SUCCESS[1]),
+                "code": openapi.Schema(type=openapi.TYPE_INTEGER, description="code", default=SYSTEM_CODE.SUCCESS[0]),
                 "extra": openapi.Schema(type=openapi.TYPE_OBJECT, description="extra data", nullable=True, default=None),
             },
         ),
@@ -237,4 +237,4 @@ class SwaggerTokenRefresh:
 
 swagger_register = swagger_auto_schema(security=[], request_body=SwaggerRegister.req, responses=SwaggerRegister.res)
 swagger_login = swagger_auto_schema(security=[], request_body=SwaggerLogin.req, responses=SwaggerLogin.res)
-swagger_refresh_token = swagger_auto_schema(security=[], equest_body=SwaggerTokenRefresh.req, response=SwaggerTokenRefresh.res)
+swagger_refresh_token = swagger_auto_schema(security=[], request_body=SwaggerTokenRefresh.req, responses=SwaggerTokenRefresh.res)

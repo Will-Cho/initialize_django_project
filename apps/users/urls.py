@@ -18,6 +18,6 @@ user_urls = [
 
 
 urlpatterns = [
-    path("api/v1/auth/", include(auth_urls)),
     path("api/v1/users/", include(user_urls)),
+    path("api/v1/auth/", include(auth_urls)),
 ]
