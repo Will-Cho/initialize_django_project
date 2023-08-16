@@ -93,7 +93,7 @@ DB_TEST_NAME= # test database name
 REDIS_HOST= # redis host
 ```
 
-- .env sample
+- **env sample**
 ```
 # SERVICE
 DEPLOY_ENV=dev
@@ -127,6 +127,7 @@ REDIS_HOST=
 
 
 - docker-compose
+  - use **env sample**
 ```
 # path : $project_path
 docker-compose -f $project_path/docker/docker-compose-yml up --build -d
