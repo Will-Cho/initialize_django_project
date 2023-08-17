@@ -4,7 +4,7 @@ from rest_framework import viewsets, status
 
 # Project
 from config.auth import auth_requred
-from config.response import create_response
+from config.common import create_response
 from apps.users.serializers.user_serializers import UserSerializer
 from apps.users.swaggers.user_swaggers import swagger_get_user
 

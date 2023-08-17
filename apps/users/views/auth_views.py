@@ -16,7 +16,7 @@ from apps.users.swaggers.auth_swaggers import (
 from config.auth import generate_access_token, generate_refresh_token
 from config.constants import SYSTEM_CODE
 from config.exception import raise_exception
-from config.response import create_response
+from config.common import create_response
 from utils import times
 
 

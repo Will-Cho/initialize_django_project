@@ -8,6 +8,13 @@ from config.constants import SYSTEM_CODE
 
 
 class SwaggerRegister:
+    params = [
+        openapi.Parameter("email", openapi.IN_FORM, type=openapi.TYPE_STRING, default=None, required=True, description="이메일"),
+        openapi.Parameter("password", openapi.IN_FORM, type=openapi.TYPE_STRING, default=None, required=True, description="비밀번호"),
+        openapi.Parameter("username", openapi.IN_FORM, type=openapi.TYPE_STRING, default=None, required=True, description="이름"),
+        openapi.Parameter("thumbnail", openapi.IN_FORM, type=openapi.TYPE_FILE, default=None, required=False, description="제목"),
+        openapi.Parameter("status", openapi.IN_FORM, type=openapi.TYPE_STRING, default=None, enum=["temp", "public", "private"], required=False, description="status (temp, public, private)"),
+    ]
     params = {
         "email": openapi.Schema(type=openapi.TYPE_STRING, description="이메일", default="test@test.com"),
         "password": openapi.Schema(type=openapi.TYPE_STRING, description="비밀번호", default="test1!"),

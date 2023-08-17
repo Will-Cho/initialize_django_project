@@ -3,6 +3,8 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from drf_yasg.views import get_schema_view
 from rest_framework.permissions import AllowAny
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 # Project
@@ -19,8 +21,9 @@ schema_view_v1 = get_schema_view(
 
 urlpatterns = [
     path("", include("apps.users.urls")),
+    path("", include("apps.articles.urls")),
     path("admin/", admin.site.urls),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
 if SERVICE.DEBUG:

@@ -11,7 +11,7 @@ from rest_framework import status
 from apps.users.models import User
 from config.constants import SYSTEM_CODE, SERVICE
 from config.exception import raise_exception
-from config.response import create_response
+from config.common import create_response
 from utils import times
 
 
