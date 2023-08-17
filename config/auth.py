@@ -9,7 +9,6 @@ from rest_framework import status
 from apps.users.models import User
 from config.constants import SERVICE, SYSTEM_CODE
 from config.exception import raise_exception
-from config.response import create_response
 
 
 def generate_access_token(user):

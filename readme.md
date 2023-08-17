@@ -9,6 +9,11 @@
 - About Django
   - use viewsets.Viwset
   - use serializers (drf)
+- Run Django
+  - ```pip install requirements```
+  - set **.env** file
+  - ```python manage.py runserver```
+  - http://127.0.0.1:8000/
 ### code test & conventions
   - check ```.pre-commit-config.yaml```
     - use pre-commit

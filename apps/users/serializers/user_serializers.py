@@ -10,3 +10,9 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ["id", "email", "username", "last_login", "date_joined"]
+
+
+class UserReferSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["id", "email", "username"]

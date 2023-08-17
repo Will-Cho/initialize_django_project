@@ -1,31 +1,33 @@
 # System
-from rest_framework.test import APIClient
+from rest_framework.test import APITestCase, APIClient
 from rest_framework import status
+from config.auth import generate_refresh_token
 
 
 # Project
 from config.constants import SERVICE, SYSTEM_CODE
 from utils import times
 from apps.users.models import User
-from apps.systems.tests import BaseAPITest
 
 
-class AuthAPITest(BaseAPITest):
+class AuthAPITest(APITestCase):
     assert SERVICE.DEBUG
 
-    def setUp(self):
-        """
-        테스트 시작 시
-        """
-        now = times.get_now()
-        self.timestamp = int(now.timestamp())
-        user = User.objects.filter(email=self.test_user_info["email"]).first()
-        if not user:
-            self.testclient.post("/api/v1/auth/register/", self.test_user_info, format="json")
+    test_user_info = {
+        "email": "api-test@test.com",
+        "username": "api-tester",
+        "password": "api-test1!",
+    }
 
-        response = self.testclient.post("/api/v1/auth/login/", self.test_user_login_info, format="json")
-        result = response.json()
-        self.refresh_token = result["data"]["refresh_token"]
+    testclient = APIClient()
+
+    @classmethod
+    def setUpTestData(cls):
+        now = times.get_now()
+        cls.timestamp = int(now.timestamp())
+        cls.user = User.objects.create_user(**cls.test_user_info)
+        cls.refresh_token = generate_refresh_token(cls.user)
+        cls.testclient.force_authenticate(user=cls.user)
 
     def tearDown(self):
         """
@@ -59,7 +61,7 @@ class AuthAPITest(BaseAPITest):
         Login API Success Test
         """
 
-        response = self.testclient.post("/api/v1/auth/login/", self.test_user_login_info, format="json")
+        response = self.testclient.post("/api/v1/auth/login/", self.test_user_info, format="json")
         result = response.json()
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)

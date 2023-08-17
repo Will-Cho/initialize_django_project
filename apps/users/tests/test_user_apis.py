@@ -5,13 +5,24 @@ from rest_framework import status
 
 # Project
 from config.constants import SERVICE, SYSTEM_CODE
-from utils import times
 from apps.users.models import User
-from apps.systems.tests import BaseAPITest
 
 
-class UserAPITest(BaseAPITest):
+class UserAPITest(APITestCase):
     assert SERVICE.DEBUG
+
+    test_user_info = {
+        "email": "api-test@test.com",
+        "username": "api-tester",
+        "password": "api-test1!",
+    }
+
+    testclient = APIClient()
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = User.objects.create_user(**cls.test_user_info)
+        cls.testclient.force_authenticate(user=cls.user)
 
     def test_get_user(self):
         response = self.testclient.get("/api/v1/users/", format="json")
