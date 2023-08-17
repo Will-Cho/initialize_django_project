@@ -106,6 +106,7 @@ DJANGO_SETTINGS_MODULE=config.settings
 CORS_ORIGIN_WHITELIST='[
     "http://localhost:3000",
     "http://localhost:8000",
+    "http://localhost:8080",
 ]'
 SECRET_KEY=django-insecure-%nimn^2j%!qj8ox=u+qzc6gmk87psqc3))z#jc32%&hd=^ad7i
 DEBUG=1
@@ -138,9 +139,9 @@ REDIS_HOST=
     docker-compose -f $project_path/docker/docker-compose-yml up --build -d
     ```
   - web site
-    - ```http://localhost```
-    - ```http://localhost/admin/```
-    - ```http://localhost/swagger/v1/```
+    - ```http://localhost:8080```
+    - ```http://localhost:8080/admin/```
+    - ```http://localhost:8080/swagger/v1/```
 
   - create superuser (if you want to login to admindjango page)
     - if you want to create superuser in test deploy enviroment
